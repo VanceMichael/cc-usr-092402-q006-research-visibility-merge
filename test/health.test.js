@@ -1,4 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { makeApp } from "./helpers.js";
 
-test("基础测试入口可执行", () => assert.equal(1, 1));
+test("健康检查返回 ok", async () => {
+  const { app } = makeApp();
+  const res = await app.inject({ method: "GET", url: "/health" });
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(res.json(), { status: "ok" });
+});

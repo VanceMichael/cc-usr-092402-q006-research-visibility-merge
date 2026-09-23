@@ -1,12 +1,4 @@
-import Database from "better-sqlite3";
-import Fastify from "fastify";
+import { buildApp } from "./app.js";
 
-const db = new Database("data/app.db");
-db.pragma("journal_mode = WAL");
-const app = Fastify();
-const health = async (_request, response) => {
-  db.prepare("select 1").get();
-  return { status: "ok" };
-};
-app.get("/health", health);
-await app.listen({ port: 8080, host: "0.0.0.0" });
+const app = buildApp({ dbPath: process.env.DB_PATH ?? "data/app.db" });
+await app.listen({ port: Number(process.env.PORT ?? 8080), host: "0.0.0.0" });
