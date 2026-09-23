@@ -1,0 +1,14 @@
+{
+  "name": "visibility-ledger",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "build": "node --check src/server.js"
+  },
+  "dependencies": {
+    "fastify": "latest",
+    "better-sqlite3": "latest"
+  }
+}
